@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="WishList">
+    <select id="wishListselect" parameterType="String" resultType="map">
+        SELECT 
+        WISH.PRODUCT_NO, PRODUCT_TITLE, DELIVERYPAY,PRODUCT_CONTENT,PRODUCT_DATE,PRODUCT_QUANTITY, PRODUCT_TITLE,PRODUCT_TOTALPRICE, WISH.WISH_NO
+        FROM WISH,PRODUCT WHERE WISH.PRODUCT_NO=PRODUCT.PRODUCT_NO AND WISH.WISH_COUNT =1 AND COMPANY_ID=#{companyid};
+    </select>
+    <select id="wishcountselect" resultType="long">
+        SELECT SUM(WISH_COUNT) FROM WISH
+    </select>
+    <!-- 기업별 상품 좋아요 토탈 합계 조회-->
+    <select id="companycarthit" resultType="int">
+            SELECT SUM(WISH_COUNT) FROM 
+            (SELECT 
+                WISH.WISH_NO, WISH.PRODUCT_NO, WISH.WISH_COUNT, PRODUCT.INSERTCOMPANY_NO 
+                 FROM WISH, PRODUCT WHERE WISH.PRODUCT_NO=PRODUCT.PRODUCT_NO)  T1 GROUP BY(  INSERTCOMPANY_NO );
+    </select>
+    <delete id="wishListdelete" parameterType="Long">
+        DELETE FROM WISH WHERE WISH_NO=#{wishno};
+    </delete>
+    <!-- <update id="updateCART" 
+        parameterType="com.example.entity.Cart">
+        UPDATE MEMBER SET USERPW=#{userpw}, USERNAME=#{username}
+        WHERE USERID=#{userid}
+    </update> -->
+    <!-- <insert id="CartInsert" parameterType="com.example.dto.CartDto">
+        INSERT INTO CART(CART_NO, CART_COUNT, CART_SUBTOTALPRICE, PRODUCT_NO, COMPANY_ID, CART_TITLE, CART_PRICE)
+        VALUES (SEQ_CART_NO.NEXTVAL, #{cartcount}, #{cartsubtotalprice}, #{product}, #{company}, #{cartitemtitle}, #{cartprice})
+    </insert> -->
+</mapper>

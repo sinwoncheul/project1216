@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Cart">
+
+    <select id="selectCart" parameterType="String" resultType="map">
+        SELECT 
+        CART.PRODUCT_NO, PRODUCT_TITLE, DELIVERYPAY,PRODUCT_CONTENT,PRODUCT_DATE,PRODUCT_QUANTITY, PRODUCT_TITLE,PRODUCT_TOTALPRICE,
+        FROM CART,PRODUCT WHERE CART.PRODUCT_NO=PRODUCT.PRODUCT_NO AND CART.CART_COUNT =1 AND COMPANY_ID=#{companyid};
+    </select>
+
+    <select id="selectCartkey" parameterType="long" resultType="map">
+        SELECT WISH.PRODUCT_NO FROM WISH WHERE WISH.PRODUCT_NO AND PRODUCT_NO=#{productno};
+    </select>
+
+    <!-- <delete id="deleteCart" parameterType="String">
+        DELETE FROM CART WHERE USERID=#{userid}
+    </delete>
+
+    <update id="updateCART" 
+        parameterType="com.example.entity.Cart">
+        UPDATE MEMBER SET USERPW=#{userpw}, USERNAME=#{username}
+        WHERE USERID=#{userid}
+    </update> -->
+
+    <insert id="CartInsert" parameterType="com.example.dto.CartDto">
+        INSERT INTO CART(CART_NO, CART_COUNT, CART_PRICE, COMPANY_ID, PRODUCT_NO)
+        VALUES (SEQ_CART_NO.NEXTVAL, #{cartcount}, #{cartprice}, #{company}, #{product})
+    </insert>
+
+</mapper>

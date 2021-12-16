@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Company">
+    <select id="idCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM COMPANY WHERE COMPANY_ID=#{comapnyid}
+    </select>
+
+    <!-- 
+    <delete id="deleteMember" parameterType="String">
+        DELETE FROM MEMBER WHERE USERID=#{userid}
+    </delete>
+
+    <update id="updateMember" 
+        parameterType="com.example.dto.Member">
+        UPDATE MEMBER SET USERPW=#{userpw}, USERNAME=#{username}
+        WHERE USERID=#{userid}
+    </update>
+
+
+    <insert id="insertMember" 
+        parameterType="com.example.dto.Member">
+        INSERT INTO MEMBER(USERID, USERPW, USERNAME)
+        VALUES (#{userid}, #{userpw}, #{username})
+    </insert> -->
+</mapper>
